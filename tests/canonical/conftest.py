@@ -82,11 +82,8 @@ class CanonicalScenario:
 def format_canonical_summary_line(scenario: CanonicalScenario) -> str:
     """Return the copyable one-line status for a canonical scenario.
 
-    L0-a has no live ``ouroboros_auto`` invocation yet, so the summary
-    deliberately reports the current shape-check terminal instead of
-    pretending PRODUCT_COMPLETE has been exercised. The live terminal
-    can replace ``shape_valid`` in L0-b without changing the copyable
-    line contract.
+    The default run is still the no-cost shape check, but the live
+    ``ouroboros_auto`` path is available behind ``OUROBOROS_RUN_CANONICAL=1``.
     """
     probe_text = ",".join(scenario.runtime_probe_kinds) or "none"
     return (
@@ -95,7 +92,7 @@ def format_canonical_summary_line(scenario: CanonicalScenario) -> str:
         f"completion={scenario.completion_mode} "
         f"probes={probe_text} "
         f"budget={scenario.wall_clock_budget_seconds}s "
-        f"live=deferred_l0b"
+        f"live=available_opt_in"
     )
 
 
